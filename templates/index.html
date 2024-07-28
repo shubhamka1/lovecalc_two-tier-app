@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Love Calculator</h3>
+                <form action="{{ url_for('calculate') }}" method="POST">
+                    <div class="form-group">
+                        <label for="name1">Your Name:</label>
+                        <input type="text" class="form-control" id="name1" name="name1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name2">Partner's Name:</label>
+                        <input type="text" class="form-control" id="name2" name="name2" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

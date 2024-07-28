@@ -36,6 +36,7 @@ def get_db_connection():
         database=os.getenv('DB_NAME', 'love_calculator')
     )
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -59,4 +60,6 @@ def calculate():
     return render_template('result.html', score=love_score, name1=name1, name2=name2)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
+

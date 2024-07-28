@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
 def init_db():
     db = mysql.connector.connect(
-        host="localhost",
-        user="yourusername",
-        password="yourpassword"
+        host=os.getenv('DB_HOST', 'localhost'),
+        user=os.getenv('DB_USER', 'root'),
+        password=os.getenv('DB_PASSWORD', 'root')
     )
     cursor = db.cursor()
     cursor.execute("CREATE DATABASE IF NOT EXISTS love_calculator")
@@ -29,10 +30,10 @@ init_db()
 
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="yourusername",
-        password="yourpassword",
-        database="love_calculator"
+        host=os.getenv('DB_HOST', 'localhost'),
+        user=os.getenv('DB_USER', 'root'),
+        password=os.getenv('DB_PASSWORD', 'root'),
+        database=os.getenv('DB_NAME', 'love_calculator')
     )
 
 @app.route('/')

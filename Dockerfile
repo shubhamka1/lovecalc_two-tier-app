@@ -7,9 +7,11 @@ WORKDIR /app
 #copy code 
 
 COPY . /app
+
 #install 
 
-RUN pip install flask mysql-connector-python
+RUN pip install flask 
+RUN pip install mysql-connector-python
 
 #env var 
 

@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+    mysql_appdb:
+        image: mysql:5.7
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=love_calculator
+        networks:
+            - my_network
+        volumes:
+            - mysql_data:/var/lib/mysql
     py_app:
         build:
             context: .
@@ -18,17 +27,6 @@ services:
             - "5000:5000"
         depends_on: 
             - mysql_appdb
-
-
-    mysql_appdb:
-        image: mysql:5.7
-        environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=love_calculator
-        networks:
-            - my_network
-        volumes:
-            - mysql_data:/var/lib/mysql
     
 networks:
     my_network:
@@ -36,5 +34,3 @@ networks:
 volumes:
     app_data:
     mysql_data:
-
-        

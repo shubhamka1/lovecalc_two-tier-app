@@ -6,7 +6,7 @@ pipeline {
         }
 
         environment{
-            sonar_env: tool "sonarqube_scanner"
+            SONAR_VAR= tool "sonarqube_scanner"
         }
 
     stages {

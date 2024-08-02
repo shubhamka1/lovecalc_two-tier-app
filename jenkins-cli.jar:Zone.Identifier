@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=http://172.20.125.34:8080/cli/
+HostUrl=http://172.20.125.34:8080/jnlpJars/jenkins-cli.jar

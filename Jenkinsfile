@@ -27,9 +27,24 @@ pipeline {
         stage("clear docker ps")
         {
             steps{
-                sh "docker stop \$(docker ps -q)"
-                sh "docker rm \$(docker ps -aq)"
-                sh "docker rmi -f \$(docker images -q)"
+                script{
+                    def runningcontainer = sh(script:'docker ps -q', returnStdout: true).trim()
+                    if(runningcontainer){
+                        sh "docker stop \$(docker ps -q)"
+                    }
+                    
+                    def removecontainer= sh(script:'docker ps -aq',returnStdout: true).trim()
+                    if(removecontainer){
+                        sh "docker rm \$(docker ps -aq)"
+                    }
+
+                    def removeimages= sh(script:'docker images -q', returnStdout: true).trim()
+                    if(removeimages){
+                        sh "docker rmi -f \$(docker images -q)"
+                    }
+                }
+
+                
             }
         }
         stage("running database"){

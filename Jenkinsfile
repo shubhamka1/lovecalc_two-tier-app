@@ -1,9 +1,14 @@
 pipeline {
-    agent {
-        node {
-            label 'Dev-Node'
+        agent {
+            node {
+                label 'Dev-Node'
+            }
         }
-    }
+
+        environment{
+            sonar_env: tool "sonarqube_scanner"
+        }
+
     stages {
         stage("GIT code clone") {
             steps {
@@ -19,6 +24,14 @@ pipeline {
             }
             
         }
+        stage("clear docker ps")
+        {
+            steps{
+                sh "docker stop $(docker ps -q)"
+                sh "docker rm $(docker ps -aq)"
+                sh "docker rmi $(docker images -q)"
+            }
+        }
         stage("running database"){
             steps{
                 sh "whoami"
@@ -32,6 +45,15 @@ pipeline {
                 echo "Application is up and running. Please open it in your browser."
             }
         }
+
+        stage("Sonar-qube analysis"){
+            steps{
+                echo "sonar qube analysis"
+            }
+        }
+
+
+
         stage("Dockerhub push"){
             steps{
                 withCredentials(

@@ -28,19 +28,19 @@ pipeline {
         {
             steps{
                 script{
-                    def runningcontainer = sh(script:'docker ps -q', returnStdout: true).trim()
+                    def runningcontainer = sh(script:'docker ps -q | grep -v sonarqube', returnStdout: true).trim()
                     if(runningcontainer){
-                        sh "docker stop \$(docker ps -q)"
+                        sh "docker stop $(docker ps | grep -v sonarqube | awk '{print $1}')"
                     }
                     
                     def removecontainer= sh(script:'docker ps -aq',returnStdout: true).trim()
                     if(removecontainer){
-                        sh "docker rm \$(docker ps -aq)"
+                        sh "docker rm \$(docker ps -a | grep -v sonarqube | awk '{print $1}')"
                     }
 
                     def removeimages= sh(script:'docker images -q', returnStdout: true).trim()
                     if(removeimages){
-                        sh "docker rmi -f \$(docker images -q)"
+                        sh "docker rmi \$(docker images -a | grep -v sonarqube | awk '{print $3}')"
                     }
                 }
 

@@ -63,7 +63,19 @@ pipeline {
 
         stage("Sonar-qube analysis"){
             steps{
-                echo "sonar qube analysis"
+                /* here withSonarQube is jenkin pipline step provided by the SonarQube Scanner for Jenkins plugin 
+                we specify the Sonarqube server name that we configured in jenkins , then in environments we specified sonar-scanner tool. 
+                so that is used here to send code in compressed format with project name and project key as ENV variable sonar-scanner is command 
+                present in tools /bin/ folder */
+                withSonarQubeEnv("Sonarqube"){
+                    sh "$SONAR_VAR/bin/sonar-scanner -Dsonar.projectName=love-calc-two-tier -Dsonar.projectKey=love-calc"
+                }
+            }
+        }
+
+        stage("Sonar-qube quality gate"){
+            steps{
+                echo "quality gates check"
             }
         }
 

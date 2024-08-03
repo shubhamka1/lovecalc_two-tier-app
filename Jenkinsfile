@@ -24,7 +24,7 @@ pipeline {
             }
             
         }
-        /*stage("clear docker ps")
+        stage("clear docker ps")
         {
             steps{
                 script{
@@ -46,7 +46,7 @@ pipeline {
 
                 
             }
-        }*/
+        }
         stage("running database"){
             steps{
                 sh "whoami"

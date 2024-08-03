@@ -72,7 +72,11 @@ pipeline {
                 }
             }
         }
-
+        stage ("Trivy scanning"){
+            steps{
+                sh "trivy image love_calc"
+            }
+        }
         stage("Sonar-qube quality gate"){
             steps{
                 echo "quality gates check"
